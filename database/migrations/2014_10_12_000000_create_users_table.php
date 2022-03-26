@@ -22,6 +22,19 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            //->constrained('users');
+            //->onUpdate('cascade')->onDelete('cascade');
+            $table->string('phone')->nullable();
+            $table->string('details')->nullable();
+            $table->string('house')->nullable();
+            $table->string('area')->nullable();
+            $table->string('city')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

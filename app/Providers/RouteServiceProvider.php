@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\Unit;
+use App\Models\User;
+use App\Models\Warehouse;
+
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -30,12 +37,25 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::prefix('api')
+                ->name('api.')
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
+
+            Route::prefix('admin')
+                ->name('admin.')
+                ->middleware('admin')
+                ->group(base_path('routes/admin.php'));
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::model('category',Category::class);
+        Route::model('product',Product::class);
+        Route::model('warehouse',Warehouse::class);
+        Route::model('purchase',Purchase::class);
+        Route::model('user',User::class);
+        Route::model('unit',Unit::class);
     }
 
     /**
